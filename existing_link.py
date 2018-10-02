@@ -2,10 +2,6 @@ from pyspark import sql, SparkConf, SparkContext
 from pyspark.sql.functions import avg, col, count, desc, asc
 from pyspark.sql.types import IntegerType, FloatType, DoubleType
 
-conf = SparkConf().setAppName("BigData")
-sc = SparkContext(conf=conf)
-sqlContext = sql.SQLContext(sc)
-
 def main(inputFile, outputFile):
 	#FORMATO: (community, user, count_friends)
 	df_link = sqlContext.read.csv("/home/giulia/Documenti/BigData/Community_Prediction/data/topological_analysis.csv")
@@ -30,6 +26,10 @@ def main(inputFile, outputFile):
 	df.toDF().write.format("csv").save(filepath)
 	print('DONE')
 
-#main("comm_rej_user.csv","rejected_link/")
+conf = SparkConf().setAppName("BigData")
+sc = SparkContext(conf=conf)
+sqlContext = sql.SQLContext(sc)
+
+main("comm_rej_user.csv","rejected_link/")
 main("comm_user.csv","valid_link/")
 

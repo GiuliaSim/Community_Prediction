@@ -18,7 +18,6 @@ def main(input_file, output_file):
 	df_clique = df_clique.rdd \
 		.map(lambda x: (x[2], (x[0],x[1]) ))
 
-		#.filter(lambda x: x[2] > 300) \
 	df_user_interest = df_user_interest.rdd \
 		.map(lambda x: (x[0], (x[1],x[2]) ))
 
@@ -36,11 +35,6 @@ def main(input_file, output_file):
 	filepath = "/home/giulia/Documenti/BigData/Community_Prediction/comm_interest_score/" + output_file
 	df.toDF().write.format("csv").save(filepath)
 	print('DONE')
-
-# df_score = df.map(lambda x: ((x[0],x[1]), x[3], x[4], 1 )).toDF()
-# df_score = df_score.groupBy("_1").agg((F.sum(df_score._2 * df_score._3)/F.sum(df_score._3)) \
-# 	.alias("weighted_val")).show(10, False)
-# df_score = df_score.rdd.map(lambda a,b: a[0],a[1],b)
 
 CLIQUE_REJ_INPUT = "comms_rej_user.csv"
 CLIQUE_VALID_INPUT = "comms_user.csv"
